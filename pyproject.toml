@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "image"
+version = "0.1.0"
+description = ""
+authors = ["Troy Squillaci <troysquillaci@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = "^7.1.2"
+opencv-contrib-python = "^4.3.0"
+imutils = "^0.5.3"
+dlib = "^19.20.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.poetry.scripts]
+image = 'image.image:image'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
