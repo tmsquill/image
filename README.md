@@ -21,7 +21,7 @@ An optional `--facial-detection` flag can be passed to `image` to detect faces. 
 
 ## Commands
 
-```bash
+```
 ❯ python image.py --help
 Usage: image.py [OPTIONS] DIRECTORY
 
