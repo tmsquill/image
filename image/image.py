@@ -8,8 +8,22 @@ from pathlib import Path
 
 @click.command()
 @click.argument('directory')
-@click.option("--facial-detection/--no-facial-detection", default=False)
-def image(directory, facial_detection):
+@click.option(
+    "--facial-detection/--no-facial-detection",
+    default=False,
+    help="Enables facial detection, images with faces are saved to the 'facial_detections' sub-directory."
+)
+@click.option(
+    "--keep-jpeg/--no-keep-jpeg",
+    default=False,
+    help="Keep JPEG version of images selected by the user to keep."
+)
+@click.option(
+    "--keep-raw/--no-keep-raw",
+    default=True,
+    help="Keep RAW version of images selected by the user to keep."
+)
+def image(directory, facial_detection, keep_jpeg, keep_raw):
 
     """Convenient image pre-processing for DSLR & Mirrorless cameras."""
 
@@ -31,11 +45,11 @@ def image(directory, facial_detection):
 
     if path.exists() and path.is_dir():
 
-        for item in path.glob('*.JPG'):
+        for jpeg in path.glob('*.JPG'):
 
-            raw = Path(f'{item.parent}/{item.stem}.ARW')
+            raw = Path(f'{jpeg.parent}/{jpeg.stem}.ARW')
 
-            image = cv2.imread(str(item), cv2.IMREAD_COLOR)
+            image = cv2.imread(str(jpeg), cv2.IMREAD_COLOR)
             image = imutils.resize(image, width=500)
 
             if facial_detection:
@@ -52,25 +66,31 @@ def image(directory, facial_detection):
                     # Show the face number.
                     cv2.putText(image, f"Face #{i + 1}", (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-            cv2.imshow(str(item), image)
+            cv2.imshow(str(jpeg), image)
 
             val = cv2.waitKey(0)
 
             if val == ord('k'):
 
-                click.echo(click.style(f'Keeping  -> {raw}', fg='green'))
-                item.unlink()
+                click.echo(click.style(f'{jpeg.stem} -> Keep', fg='green'))
 
-                if facial_detection and raw.exists() and len(rects) > 0:
+                if not keep_jpeg:
+
+                    jpeg.unlink()
+
+                if not keep_raw and raw.exists():
+
+                    raw.unlink()
+
+                elif facial_detection and raw.exists() and len(rects) > 0:
 
                     raw.replace(Path(f'{raw.parent}/facial_detections/{raw.name}'))
 
             elif val == ord('d'):
 
-                click.echo(click.style(f'Removing -> {raw}', fg='red'))
-                raw = Path(f'{item.parent}/{item.stem}.ARW')
+                click.echo(click.style(f'{jpeg.stem} -> Discard', fg='red'))
 
-                item.unlink()
+                jpeg.unlink()
                 raw.unlink()
 
             else:

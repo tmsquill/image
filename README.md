@@ -19,6 +19,10 @@ One of the following actions can be taken for each image:
 
 An optional `--facial-detection` flag can be passed to `image` to detect faces. Images containing faces that are kept are stored inside a sub-directory.
 
+### Keeping Options
+
+By default, `image` will discard __JPEG__ files and keep __RAW__ files. This functionality can be tuned with the `--keep-jpeg/--no-keep-jpeg` and `--keep-raw/--no-keep-raw` flags respectively.
+
 ## Commands
 
 ```
@@ -29,5 +33,15 @@ Usage: image.py [OPTIONS] DIRECTORY
 
 Options:
   --facial-detection / --no-facial-detection
+                                  Enables facial detection, images with faces
+                                  are saved to the 'facial_detections' sub-
+                                  directory.
+
+  --keep-jpeg / --no-keep-jpeg    Keep JPEG version of images selected by the
+                                  user to keep.
+
+  --keep-raw / --no-keep-raw      Keep RAW version of images selected by the
+                                  user to keep.
+
   --help                          Show this message and exit.
 ```
