@@ -86,7 +86,11 @@ def image(directory, view_size, facial_detection, keep_jpeg, keep_raw):
                     # Show the face number.
                     cv2.putText(image, f"Face #{i + 1}", (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
-            cv2.imshow(str(jpeg), image)
+            # Display the image to the user.
+            window_name = str(jpeg)
+            cv2.namedWindow(window_name)
+            cv2.moveWindow(window_name, 50, 50)
+            cv2.imshow(window_name, image)
 
             val = cv2.waitKey(0)
 
@@ -125,7 +129,9 @@ def image(directory, view_size, facial_detection, keep_jpeg, keep_raw):
 
         total_images = counter_discard + counter_keep
 
-        click.echo(f"Images Retained: {(counter_keep / total_images):.2%} ({counter_keep}/{total_images})")
+        if total_images > 0:
+
+            click.echo(f"Images Retained: {(counter_keep / total_images):.2%} ({counter_keep}/{total_images})")
 
     else:
 
