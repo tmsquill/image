@@ -44,9 +44,9 @@ Usage: image.py [OPTIONS] DIRECTORY
   Convenient image pre-processing for DSLR & Mirrorless cameras.
 
 Options:
-  --view-size INTEGER             Resizes images for displaying to a maximum
-                                  width or height (depending on aspect ratio)
-                                  equivalent to the view size.
+  --preview-size INTEGER          Resizes images for displaying (based on
+                                  width or height, whichever is larger)
+                                  equivalent to the preview size.
 
   --facial-detection / --no-facial-detection
                                   Enables facial detection, images with faces

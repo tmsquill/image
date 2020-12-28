@@ -6,7 +6,7 @@ import sys
 from imutils import face_utils, resize
 from pathlib import Path
 
-def resize_fit_view_size(image, size):
+def resize_fit_preview_size(image, size):
 
     height, width = image.shape[:2]
 
@@ -21,9 +21,9 @@ def resize_fit_view_size(image, size):
 @click.command()
 @click.argument('directory')
 @click.option(
-    "--view-size",
+    "--preview-size",
     default=1000,
-    help="Resizes images for displaying to a maximum width or height (depending on aspect ratio) equivalent to the view size."
+    help="Resizes images for displaying (based on width or height, whichever is larger) equivalent to the preview size."
 )
 @click.option(
     "--facial-detection/--no-facial-detection",
@@ -40,7 +40,7 @@ def resize_fit_view_size(image, size):
     default=True,
     help="Keep RAW version of images selected by the user to keep."
 )
-def image(directory, view_size, facial_detection, keep_jpeg, keep_raw):
+def image(directory, preview_size, facial_detection, keep_jpeg, keep_raw):
 
     """Convenient image pre-processing for DSLR & Mirrorless cameras."""
 
@@ -74,7 +74,7 @@ def image(directory, view_size, facial_detection, keep_jpeg, keep_raw):
             raw = Path(f'{jpeg.parent}/{jpeg.stem}.ARW')
 
             image = cv2.imread(str(jpeg), cv2.IMREAD_COLOR)
-            image = resize_fit_view_size(image, size=view_size)
+            image = resize_fit_preview_size(image, size=preview_size)
 
             if facial_detection:
 
