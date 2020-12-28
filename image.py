@@ -58,7 +58,11 @@ def image(directory, view_size, facial_detection, keep_jpeg, keep_raw):
             click.echo("Facial detection unavailable, please ensure dlib is installed correctly.")
             sys.exit(1)
 
-        (path / 'facial_detections').mkdir()
+        facial_detections_dir = path / 'facial_detections'
+
+        if not facial_detections_dir.exists():
+
+            facial_detections_dir.mkdir()
 
     if path.exists() and path.is_dir():
 
