@@ -4,6 +4,14 @@ Convenient image pre-processing for DSLR & Mirrorless cameras. Digital cameras t
 
 The `image` tool provides dead-simple reviewing, selecting, and organizing capabilities that run smoothly on older hardware.
 
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+Optionally install `dlib` to enable facial detection capabilities, see [here](https://www.pyimagesearch.com/2018/01/22/install-dlib-easy-complete-guide/).
+
 ## How It Works
 
 At a high level, `image` takes one argument; a path to a directory containing __JPEG & RAW__ images. The tool will load __JPEG__ images one-by-one and display them using OpenCV.
